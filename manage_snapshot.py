@@ -2,14 +2,10 @@ import requests
 from pyVim.connect import SmartConnect, Disconnect
 from pyVmomi import vim, vmodl
 import atexit
-#import os
 import sys
-#from pprint import pprint, pformat
 import time
-#from netaddr import IPNetwork, IPAddress
 import argparse
 import getpass
-#from tools import tasks
 
 # Disable SSL certificats check
 requests.packages.urllib3.disable_warnings()
@@ -87,7 +83,6 @@ def main(**kwargs):
         
         for i in range(0, len(rootSnapshot.childSnapshotList)):
             child = rootSnapshot.childSnapshotList[i]
-            #print "snapshot : %s > %s ( %s )" %(indent,child.name,child.snapshot)
             if child.name ==  deploy_settings['snapshot'] :
                 print "Delete %s"%deploy_settings['snapshot']
                 task = child.snapshot.RemoveSnapshot_Task(recursive)
@@ -115,12 +110,10 @@ def main(**kwargs):
             indent = "=="
             for i in range(0, len(rootSnapshot.childSnapshotList)):
                 child = rootSnapshot.childSnapshotList[i]
-                #print "snapshot : %s > %s ( %s )" %(indent,child.name,child.snapshot)
                 print "snapshot : %s > %s" %(indent,child.name)
                 indent = indent + "=="
                 while len(child.childSnapshotList) > 0:
                     child = child.childSnapshotList[0]
-                    #print "snapshot : %s > %s ( %s )" %(indent,child.name,child.snapshot)
                     print "snapshot : %s > %s" %(indent,child.name)
                     indent = indent + "=="
 
@@ -137,10 +130,6 @@ def main(**kwargs):
  Main program
 """
 if __name__ == "__main__":
-    #if getpass.getuser() != 'root':
-    #    sys.exit("You must be root to run this.  Quitting.")
-
-    
 
     # Define command line arguments
     parser = argparse.ArgumentParser(description='Create/Delete a snapshot')
